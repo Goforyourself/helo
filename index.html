@@ -8,9 +8,9 @@
     <link rel="shortcut icon" type="image/png" href="favicon.png" />
     <style>
       body {
-        background-image: url("super-mario-bros.jpeg");
-        background-size: cover;
-        background-repeat: no-repeat;
+        background-color: rgb(107, 113, 235);
+        padding: 0;
+        margin: 0;
       }
 
       .new {
@@ -79,10 +79,10 @@
       }
       #nickname {
         position: absolute;
-        top: 60%;
-        left: 60%;
+        top: 85%;
+        left: 26%;
         transform: translate(-50%, -50%);
-        color: white;
+        color: rgb(255, 0, 0);
         font-size: 32px;
         font-weight: bold;
       }
@@ -92,7 +92,43 @@
         left: 91%;
         transform: translate(-50%, -50%);
       }
-     
+      .brick {
+        height: 60px;
+        width: 100%;
+        background-image: url("brick.png");
+        background-size: 60px;
+        position: absolute;
+        bottom: 0;
+      }
+      #mario {
+        background: url("smb_mario_sheet.png") -673px 604px;
+        background-size: 1300px;
+        height: 50px;
+        width: 50px;
+        position: absolute;
+        bottom: 60px;
+      }
+      .brick2 {
+        height: 60px;
+        width: 300px;
+        background-image: url("brick.png");
+        background-size: 60px;
+        position: absolute;
+        bottom: 200px;
+        right: 10px;
+      }
+      .cloud {
+        background-image: url("cloud.png");
+        background-size: 150px;
+        width: 150px;
+        height: 150px;
+      }
+      .cloud-wrapper{
+        margin-top: 50px;
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+      }
     </style>
   </head>
   <body onload="showNickName()">
@@ -108,13 +144,43 @@
       </div>
     </div>
     <div class="hi">
-    <img src="coin.gif" width="50px" alt="">
-  </div>
- 
+      <img src="coin.gif" width="50px" alt="" />
+    </div>
+    <div class="brick"></div>
+    <div id="mario"></div>
+    <div class="brick2"></div>
+    <div class="cloud-wrapper">
+      <div class="cloud"></div>
+      <div class="cloud"></div>
+      <div class="cloud"></div>
+      <div class="cloud"></div>
+    </div>
     <script>
+      const JUMP = 300;
+      let groundLevel = 60;
+      let mario = document.getElementById("mario");
       function showNickName() {
-        document.getElementById("nickname").innerText = localStorage.getItem("nickname") || ""
+        document.getElementById("nickname").innerText =
+          localStorage.getItem("nickname") || "";
       }
+      const sleep = (time) => {
+        return new Promise((resolve) => setTimeout(resolve, time));
+      };
+      const jump = async () => {
+        for (let index = 0; index <= JUMP; index += 4) {
+          await sleep(1);
+          mario.style.bottom = `${groundLevel + index}px`;
+        }
+        for (let index = JUMP; index >= 0; index -= 4) {
+          await sleep(1);
+          mario.style.bottom = `${groundLevel + index}px`;
+        }
+      };
+      document.addEventListener("keyup", (event) => {
+        if (event.code === "Space") {
+          jump();
+        }
+      });
     </script>
   </body>
 </html>
