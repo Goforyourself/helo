@@ -8,7 +8,7 @@
     <link rel="shortcut icon" type="image/png" href="favicon.png" />
     <style>
       body {
-        background-color: rgb(107, 113, 235);
+        background-color: rgb(29, 145, 227);
         padding: 0;
         margin: 0;
       }
@@ -86,11 +86,10 @@
         font-size: 32px;
         font-weight: bold;
       }
-      .hi {
+      .coin {
         position: absolute;
-        top: 55%;
-        left: 91%;
-        transform: translate(-50%, -50%);
+        bottom: 60px;
+        left: 60px;
       }
       .brick {
         height: 60px;
@@ -123,11 +122,29 @@
         width: 150px;
         height: 150px;
       }
-      .cloud-wrapper{
+      .cloud-wrapper {
         margin-top: 50px;
         display: flex;
         width: 100%;
         justify-content: space-around;
+      }
+      .lucky {
+        position: absolute;
+        right: 60px;
+      }
+      .luckyleft {
+        position: absolute;
+        right: 180px;
+      }
+      .coinhi {
+        position: absolute;
+        bottom: 60px;
+        left: 180px;
+      }
+      .settings {
+        position: absolute;
+        right: 20px;
+        top: 20px;
       }
     </style>
   </head>
@@ -143,18 +160,45 @@
         </div>
       </div>
     </div>
-    <div class="hi">
-      <img src="coin.gif" width="50px" alt="" />
-    </div>
+
     <div class="brick"></div>
     <div id="mario"></div>
-    <div class="brick2"></div>
+    <div class="brick2">
+      <img class="coin" src="coin.gif" width="50px" alt="" />
+      <img class="coinhi" src="coin.gif" width="50px" alt="" />
+      <img
+        class="luckyleft"
+        src="luckyblock.gif"
+        alt=""
+        width="60px"
+        height="60px"
+      />
+      <img
+        class="lucky"
+        src="luckyblock.gif"
+        alt=""
+        width="60px"
+        height="60px"
+      />
+    </div>
     <div class="cloud-wrapper">
       <div class="cloud"></div>
       <div class="cloud"></div>
       <div class="cloud"></div>
       <div class="cloud"></div>
     </div>
+    <audio id="themesong" src="theme_song.mp3"></audio>
+
+    <div class="settings">
+      <div class="dropdown">
+        <button class="dropbtn">Sound</button>
+        <div class="dropdown-content">
+          <div onclick="playAudio()">Play Audio</div>
+          <div onclick="pauseAudio()">Pause Audio</div>
+        </div>
+      </div>
+    </div>
+
     <script>
       const JUMP = 300;
       let groundLevel = 60;
@@ -181,6 +225,14 @@
           jump();
         }
       });
+      const theme = document.getElementById("themesong");
+      theme.loop = tr;
+      function playAudio() {
+        theme.play();
+      }
+      function pauseAudio() {
+        theme.pause();
+      }
     </script>
   </body>
 </html>
